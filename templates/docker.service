@@ -1,0 +1,15 @@
+[Unit]
+Description=Docker Application Container Engine 
+Documentation=http://docs.docker.io
+Requires=docker.socket
+
+[Service]
+Environment="TMPDIR=/var/tmp/"
+EnvironmentFile=/run/flannel/subnet.env
+ExecStartPre=/bin/mount --make-rprivate /
+LimitNOFILE=1048576
+LimitNPROC=1048576
+ExecStart=/usr/bin/docker --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} --daemon --storage-driver=btrfs --host=fd://
+
+[Install]
+WantedBy=multi-user.target
