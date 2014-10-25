@@ -141,6 +141,7 @@ func waitForFile() {
 
 func startFlannel() {
 	fmt.Print("starting flannel...")
+	must("systemctl enable flannel")
 	must("systemctl start flannel")
 	fmt.Printf("ok\n")
 }
